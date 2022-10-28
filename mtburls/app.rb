@@ -25,14 +25,10 @@ def get_url(site)
     url = "https://www.velonews.com/category/news/mountain/feed/"
   elsif (site == "bikerumor")
     url = "https://bikerumor.com/category/bike-types/mountain-bike/feed/"
-  elsif (site == "radnut")
-    url = "https://radnut.com/feed/"
   elsif (site == "nsmb")
     url = "https://nsmb.com/articles/rss/"
   elsif (site == "mbaction")
     url = "https://mbaction.com/feed/"
-  elsif (site == "kitsbow")
-    url = "https://www.kitsbow.com/blogs/news.atom"
   elsif (site == "bermstyle")
     url = "https://bermstyle.com/feed/"
   end

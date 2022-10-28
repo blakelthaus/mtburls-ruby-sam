@@ -25,20 +25,28 @@ Resources:
           Properties:
             Path: /site
             Method: get
+            RestApiId:
+               Ref: MtbApi
             RequestParameters:
               - method.request.querystring.type:
                   Required: true
-                  Caching: false
+                  Caching: true
   MtbApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
+      CacheClusterEnabled: true
+      CacheClusterSize: "1.6"
+      MethodSettings: 
+         - ResourcePath: /
+           CachingEnabled: true
+           CacheTtlInSeconds: 1000
+           HttpMethod: "GET"
       Cors:
         AllowMethods: "'GET,POST,OPTIONS'"
         AllowHeaders: "'content-type'"
         AllowOrigin: "'*'"
         AllowCredentials: false
-        CacheClusterEnabled: true
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
