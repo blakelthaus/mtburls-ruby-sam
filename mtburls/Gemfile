@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
 gem "httparty"
+gem "open-uri"
+gem "rss"
 
 ruby '~> 2.7.0'
