@@ -3,41 +3,51 @@ require 'json'
 require 'rss'
 require 'open-uri'
 
-def get_url(site)
-  # url = "https://www.pinkbike.com/pinkbike_xml_feed.php"
-  if (site == "pinkbike")
-    url = "https://www.pinkbike.com/pinkbike_xml_feed.php"
-  elsif (site == "vitalmtb")
-    url = "http://feeds.vitalmtb.com/VitalMtbSpotlights"
-  elsif (site == "bikeradar")
-    url = "https://www.bikeradar.com/cycling-discipline/mtb/feed/" #doesn't work
-  elsif (site == "mtbmag")
-    url = " https://www.mtb-mag.com/en/feed/" #doesn't work
-  elsif (site == "singletracks")
-    url = "https://www.singletracks.com/articles/feed/"
-  elsif (site == "enduro-mtb")
-    url = "https://enduro-mtb.com/en/feed/" #doesn't work
-  elsif (site == "mtbr")
-    url = "https://www.mbr.co.uk/feed" 
-  elsif (site == "imbikemag")
-    url = "https://www.imbikemag.com/feed/"
-  elsif (site == "velonews")
-    url = "https://www.velonews.com/category/news/mountain/feed/"
-  elsif (site == "bikerumor")
-    url = "https://bikerumor.com/category/bike-types/mountain-bike/feed/"
-  elsif (site == "nsmb")
-    url = "https://nsmb.com/articles/rss/"
-  elsif (site == "mbaction")
-    url = "https://mbaction.com/feed/"
-  elsif (site == "bermstyle")
-    url = "https://bermstyle.com/feed/"
-  end
+def get_urls()
+  {
+    "pinkbike" => {
+      "url": "https://www.pinkbike.com/pinkbike_xml_feed.php"
+    },
+    "vitalmtb" => {
+      "url": "http://feeds.vitalmtb.com/VitalMtbSpotlights"
+    },
+    "singletracks" => {
+      "url": "https://www.singletracks.com/articles/feed/"
+    },
+    "mtbr" => {
+      "url": "https://www.mbr.co.uk/feed"
+    },
+    "imbikemag" => {
+      "url": "https://www.imbikemag.com/feed/"
+    },
+    "velonews" => {
+      "url": "https://www.velonews.com/category/news/mountain/feed/"
+    },
+    "bikerumor" => {
+      "url": "https://bikerumor.com/category/bike-types/mountain-bike/feed/"
+    },
+    "nsmb" => {
+      "url": "https://nsmb.com/articles/rss/"
+    },
+    "mbaction" => {
+      "url": "https://mbaction.com/feed/"
+    },
+    "bermstyle" => {
+      "url": "https://bermstyle.com/feed/"
+    }
+  }
+end
 
-  url
+def get_url(site)
+  urls = get_urls()
+  print urls
+  urls[site][:url]
 end
 
 def get_news(site)
   url = get_url(site)
+  puts "test"
+  puts url
   counter = 0
   response = []
   URI.open(url) do |rss|
@@ -57,13 +67,17 @@ def get_news(site)
   response
 end
 
-def lambda_handler(event:, context: )
 
-  begin
-    response = get_news(event["queryStringParameters"]["type"])
-  rescue HTTParty::Error => error
-    puts error.inspect
-    raise error
+def lambda_handler(event:, context: )
+  if (event["queryStringParameters"])
+    begin
+      response = get_news(event["queryStringParameters"]["type"])
+    rescue HTTParty::Error => error
+      puts error.inspect
+      raise error
+    end
+  else 
+    response = get_urls()
   end
 
   {
@@ -72,5 +86,4 @@ def lambda_handler(event:, context: )
       links: response
     }.to_json
   }
-
 end

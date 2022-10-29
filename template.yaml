@@ -29,7 +29,7 @@ Resources:
                Ref: MtbApi
             RequestParameters:
               - method.request.querystring.type:
-                  Required: true
+                  Required: false
                   Caching: true
   MtbApi:
     Type: AWS::Serverless::Api
