@@ -15,7 +15,7 @@ def get_urls()
     "mbaction" => {
       "url": "https://mbaction.com/feed/",
       "type": "mbaction",
-      "title": "Mountain Bike Action",
+      "title": "MBAction",
       "color": "#000000",
       "extension": ".png"
     },
@@ -36,7 +36,7 @@ def get_urls()
     "imbikemag" => {
       "url": "https://www.imbikemag.com/feed/",
       "type": "imbikemag",
-      "title": "Internation Mountain Bike Magazine",
+      "title": "IMBikeMag",
       "color": "#3C3C3C",
       "extension": ".png"
     },
@@ -57,7 +57,7 @@ def get_urls()
     "singletracks" => {
       "url": "https://www.singletracks.com/articles/feed/",
       "type": "singletracks",
-      "title": "Singletracks Magazine",
+      "title": "Singletracks",
       "color": "#346A20",
       "extension": ".jpeg"
     },
