@@ -6,34 +6,67 @@ require 'open-uri'
 def get_urls()
   {
     "pinkbike" => {
-      "url": "https://www.pinkbike.com/pinkbike_xml_feed.php"
-    },
-    "vitalmtb" => {
-      "url": "http://feeds.vitalmtb.com/VitalMtbSpotlights"
-    },
-    "singletracks" => {
-      "url": "https://www.singletracks.com/articles/feed/"
-    },
-    "mtbr" => {
-      "url": "https://www.mbr.co.uk/feed"
-    },
-    "imbikemag" => {
-      "url": "https://www.imbikemag.com/feed/"
-    },
-    "velonews" => {
-      "url": "https://www.velonews.com/category/news/mountain/feed/"
-    },
-    "bikerumor" => {
-      "url": "https://bikerumor.com/category/bike-types/mountain-bike/feed/"
-    },
-    "nsmb" => {
-      "url": "https://nsmb.com/articles/rss/"
+      "url": "https://www.pinkbike.com/pinkbike_xml_feed.php",
+      "type": "pinkbike",
+      "title": "Pinkbike",
+      "color": "#D70202",
+      "extension": ".png"
     },
     "mbaction" => {
-      "url": "https://mbaction.com/feed/"
+      "url": "https://mbaction.com/feed/",
+      "type": "mbaction",
+      "title": "Mountain Bike Action",
+      "color": "#000000",
+      "extension": ".png"
+    },
+    "vitalmtb" => {
+      "url": "http://feeds.vitalmtb.com/VitalMtbSpotlights",
+      "type": "vitalmtb",
+      "title": "Vital MTB",
+      "color": "#E2E2E2",
+      "extension": ".png"
+    },
+    "mtbr" => {
+      "url": "https://www.mbr.co.uk/feed",
+      "type": "mtbr",
+      "title": "MTBR",
+      "color": "#404040",
+      "extension": ".svg"
+    },
+    "imbikemag" => {
+      "url": "https://www.imbikemag.com/feed/",
+      "type": "imbikemag",
+      "title": "Internation Mountain Bike Magazine",
+      "color": "#3C3C3C",
+      "extension": ".png"
+    },
+    "bikerumor" => {
+      "url": "https://bikerumor.com/category/bike-types/mountain-bike/feed/",
+      "type": "bikerumor",
+      "title": "Bike Rumor",
+      "color": "#F6941C",
+      "extension": ".jpeg"
+    },
+    "nsmb" => {
+      "url": "https://nsmb.com/articles/rss/",
+      "type": "nsmb",
+      "title": "NSMB",
+      "color": "#000000",
+      "extension": ".jpeg"
+    },
+    "singletracks" => {
+      "url": "https://www.singletracks.com/articles/feed/",
+      "type": "singletracks",
+      "title": "Singletracks Magazine",
+      "color": "#346A20",
+      "extension": ".jpeg"
     },
     "bermstyle" => {
-      "url": "https://bermstyle.com/feed/"
+      "url": "https://bermstyle.com/feed/",
+      "type": "bermstyle",
+      "title": "Berm Style",
+      "color": "#000000",
+      "extension": ".png"
     }
   }
 end
@@ -58,7 +91,8 @@ def get_news(site)
         if(counter < 20)
           puts item.title
           puts item.link
-          response.push({title: item.title, link: item.link})
+          puts item.pubDate
+          response.push({title: item.title, link: item.link, pubDate: item.pubDate})
           counter += 1
         end
       end
@@ -82,6 +116,11 @@ def lambda_handler(event:, context: )
 
   {
     statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": "*", 
+      "Access-Control-Allow-Methods": "GET" 
+    },
     body: {
       links: response
     }.to_json
