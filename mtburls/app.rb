@@ -40,13 +40,6 @@ def get_urls()
       "color": "#3C3C3C",
       "extension": ".png"
     },
-    "bikerumor" => {
-      "url": "https://bikerumor.com/category/bike-types/mountain-bike/feed/",
-      "type": "bikerumor",
-      "title": "Bike Rumor",
-      "color": "#F6941C",
-      "extension": ".jpeg"
-    },
     "nsmb" => {
       "url": "https://nsmb.com/articles/rss/",
       "type": "nsmb",
